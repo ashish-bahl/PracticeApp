@@ -4,7 +4,7 @@ import com.example.practice.common.LoginCred
 
 class FakeApiService {
 
-    suspend fun login(loginCred: LoginCred): Boolean {
-        return true
+    fun login(loginCred: LoginCred): Boolean {
+        return !loginCred.password.contains("wrong")
     }
 }

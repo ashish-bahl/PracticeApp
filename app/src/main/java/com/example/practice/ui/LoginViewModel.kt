@@ -3,7 +3,7 @@ package com.example.practice.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.practice.common.LoginCred
-import com.example.practice.common.Result
+import com.example.practice.common.ResultState
 import com.example.practice.data.LoginRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class LoginViewModel: ViewModel() {
+class LoginViewModel(
+    private val loginRepository: LoginRepository = LoginRepository(),
+): ViewModel() {
 
-    private val loginRepository: LoginRepository = LoginRepository()
-
-    private val _loginState = MutableStateFlow<Result?>(null)
-    val loginState: StateFlow<Result?> = _loginState.asStateFlow()
+    private val _loginState = MutableStateFlow<ResultState?>(null)
+    val loginState: StateFlow<ResultState?> = _loginState.asStateFlow()
 
     fun loginWithCredentials(loginCred: LoginCred) {
         viewModelScope.launch {

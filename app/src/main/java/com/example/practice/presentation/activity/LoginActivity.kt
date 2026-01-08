@@ -25,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.example.practice.common.LoginCred
 import com.example.practice.common.ResultState
 import com.example.practice.presentation.theme.PracticeAppTheme
@@ -60,6 +61,8 @@ class LoginActivity : ComponentActivity() {
             }
         }
 
+        val userNameErrorState by loginViewModel.userNameError.collectAsState()
+        val passwordErrorState by loginViewModel.passwordError.collectAsState()
 
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -71,7 +74,14 @@ class LoginActivity : ComponentActivity() {
                 onValueChange = { newText: String ->
                     userName = newText
                 },
-                label = { Text("UserName") }
+                label = { Text("Email") },
+                singleLine = true,
+                isError = userNameErrorState != null,
+                supportingText = {
+                    Text(
+                        text = userNameErrorState?.let { stringResource(it) } ?: ""
+                    )
+                }
             )
 
             TextField(
@@ -79,18 +89,23 @@ class LoginActivity : ComponentActivity() {
                 onValueChange = { newText: String ->
                     password = newText
                 },
-                label = { Text("Password") }
+                label = { Text("Password") },
+                singleLine = true,
+                isError = passwordErrorState != null,
+                supportingText = {
+                    Text(
+                        text = passwordErrorState?.let { stringResource(it) } ?: ""
+                    )
+                }
             )
 
             Button(onClick = {
-                if (userName.isNotEmpty() && password.isNotEmpty()) {
-                    loginViewModel.loginWithCredentials(
-                        LoginCred(
-                            userName,
-                            password
-                        )
+                loginViewModel.loginWithCredentials(
+                    LoginCred(
+                        userName,
+                        password
                     )
-                }
+                )
             }) {
                 Text("Submit")
             }

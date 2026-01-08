@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">PracticeApp</string>
     <string name="title_activity_search">SearchActivity</string>
+
+    <string name="error_username_required">Username is required</string>
+    <string name="error_username_length">Username must be at least 6 characters</string>
+    <string name="error_password_required">Password is required</string>
+    <string name="error_password_length">Password must be at least 6 characters</string>
 </resources>

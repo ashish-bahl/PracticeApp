@@ -3,7 +3,7 @@ package com.example.practice
 import com.example.practice.common.LoginCred
 import com.example.practice.common.ResultState
 import com.example.practice.data.LoginRepository
-import com.example.practice.ui.LoginViewModel
+import com.example.practice.presentation.viewmodel.LoginViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.unmockkAll

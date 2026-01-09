@@ -61,7 +61,5 @@ dependencies {
     // Unit Testing
     testImplementation("io.mockk:mockk:1.13.8") // For mocking Repository
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") // For testing coroutines
-
-    // UI Testing
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.0")
+    testImplementation("app.cash.turbine:turbine:1.0.0")
 }

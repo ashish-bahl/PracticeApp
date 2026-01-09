@@ -1,4 +1,4 @@
-package com.example.practice.ui
+package com.example.practice.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

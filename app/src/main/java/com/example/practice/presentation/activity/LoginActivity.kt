@@ -1,6 +1,5 @@
-package com.example.practice.ui
+package com.example.practice.presentation.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -28,9 +27,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.practice.common.LoginCred
 import com.example.practice.common.ResultState
-import com.example.practice.ui.theme.PracticeAppTheme
+import com.example.practice.presentation.theme.PracticeAppTheme
+import com.example.practice.presentation.viewmodel.LoginViewModel
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

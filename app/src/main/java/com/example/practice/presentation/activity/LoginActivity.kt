@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
@@ -25,7 +27,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentType
+import androidx.compose.ui.semantics.semantics
 import com.example.practice.common.LoginCred
 import com.example.practice.common.ResultState
 import com.example.practice.presentation.theme.PracticeAppTheme
@@ -64,23 +69,24 @@ class LoginActivity : ComponentActivity() {
         val userNameErrorState by loginViewModel.userNameError.collectAsState()
         val passwordErrorState by loginViewModel.passwordError.collectAsState()
 
+        val userNameState = rememberTextFieldState()
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
             TextField(
-                value = userName,
-                onValueChange = { newText: String ->
-                    userName = newText
-                },
-                label = { Text("Email") },
-                singleLine = true,
-                isError = userNameErrorState != null,
+                state = userNameState,
+                lineLimits = TextFieldLineLimits.SingleLine,
+                placeholder = { Text("Email") },
+                isError = userNameState.text.length in 1..5,
                 supportingText = {
                     Text(
                         text = userNameErrorState?.let { stringResource(it) } ?: ""
                     )
+                },
+                modifier = Modifier.semantics {
+                    contentType = ContentType.Username
                 }
             )
 
@@ -96,13 +102,16 @@ class LoginActivity : ComponentActivity() {
                     Text(
                         text = passwordErrorState?.let { stringResource(it) } ?: ""
                     )
+                },
+                modifier = Modifier.semantics {
+                    contentType = ContentType.Password
                 }
             )
 
             Button(onClick = {
                 loginViewModel.loginWithCredentials(
                     LoginCred(
-                        userName,
+                        userNameState.text.toString(),
                         password
                     )
                 )
